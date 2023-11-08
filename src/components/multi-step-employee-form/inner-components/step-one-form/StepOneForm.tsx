@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -41,12 +41,12 @@ const StepOneForm: FC<StepOneFormProps> = ({ onSubmit }) => {
   const { errors } = formState;
 
   const submitData: SubmitHandler<IFormInput> = (data) => {
-    localStorage.setItem("stepOneData", JSON.stringify(data));
+    localStorage.setItem("personalInformationData", JSON.stringify(data));
     onSubmit && onSubmit();
   };
 
   return (
-    <form className="custom-form" autoComplete="off" onSubmit={handleSubmit(submitData)}>
+    <form className="custom-form" noValidate autoComplete="off" onSubmit={handleSubmit(submitData)}>
       <Grid container spacing="20px">
         <Grid item xs={12}>
           <p className="custom-form-section-label">Basic Information:</p>

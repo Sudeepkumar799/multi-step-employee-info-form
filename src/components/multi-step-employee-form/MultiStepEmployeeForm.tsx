@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import CustomStepper from "../custom-stepper/CustomStepper";
 import "./MultiStepEmployeeForm.scss";
 import StepOneForm from "./inner-components/step-one-form/StepOneForm";
+import StepTwoForm from "./inner-components/step-two-form/StepTwoForm";
 
 type Action = {
   type: string;
@@ -13,7 +14,7 @@ type InitialStateProps = {
 };
 
 const initialState: InitialStateProps = {
-  activeStep: 0,
+  activeStep: 1,
 };
 
 const reducer = (state: InitialStateProps, action: Action) => {
@@ -43,10 +44,17 @@ const MultiStepEmployeeForm = () => {
     updateActiveStep(1);
   };
 
+  const handleGoBack = () => {
+    updateActiveStep(activeStep - 1);
+  };
+
   return (
     <div className="msef-section">
       <CustomStepper activeStep={activeStep} />
-      <div className="msef-section-content">{activeStep === 0 && <StepOneForm onSubmit={handleStepOneSubmit} />}</div>
+      <div className="msef-section-content">
+        {activeStep === 0 && <StepOneForm onSubmit={handleStepOneSubmit} />}
+        {activeStep === 1 && <StepTwoForm onBack={handleGoBack} onSubmit={handleStepOneSubmit} />}
+      </div>
     </div>
   );
 };
