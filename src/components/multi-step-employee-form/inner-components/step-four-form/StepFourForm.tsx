@@ -13,12 +13,12 @@ interface IEmployment {
   skillName: string;
   version: string;
   lastUsed: string;
-  startDate: string;
-  endDate: string;
+  experienceYears: string;
+  experienceMonths: string;
 }
 
 interface IFormInput {
-  education: IEmployment[];
+  skills: IEmployment[];
 }
 
 type StepFourFormProps = {
@@ -29,20 +29,20 @@ type StepFourFormProps = {
 const StepFourForm: FC<StepFourFormProps> = ({ onBack, onSubmit }) => {
   const { register, control, handleSubmit, formState } = useForm({
     defaultValues: {
-      education: [
+      skills: [
         {
           skillName: "",
           version: "",
           lastUsed: "",
-          startDate: "",
-          endDate: "",
+          experienceYears: "",
+          experienceMonths: "",
         },
       ],
     },
   });
   const { errors } = formState;
   const { fields, append, remove } = useFieldArray({
-    name: "education",
+    name: "skills",
     control,
   });
 
@@ -51,13 +51,13 @@ const StepFourForm: FC<StepFourFormProps> = ({ onBack, onSubmit }) => {
       skillName: "",
       version: "",
       lastUsed: "",
-      startDate: "",
-      endDate: "",
+      experienceYears: "",
+      experienceMonths: "",
     });
   };
 
   const submitData: SubmitHandler<IFormInput> = (data) => {
-    localStorage.setItem("educationData", JSON.stringify(data));
+    localStorage.setItem("skillsData", JSON.stringify(data));
     onSubmit && onSubmit();
   };
 
@@ -72,14 +72,14 @@ const StepFourForm: FC<StepFourFormProps> = ({ onBack, onSubmit }) => {
         </Grid>
         <Grid item xs={12}>
           {fields.map((field, index) => {
-            const skillNameId = `education.${index}.skillName` as const;
-            const versionId = `education.${index}.version` as const;
-            const lastUsedId = `education.${index}.lastUsed` as const;
-            const startDateId = `education.${index}.startDate` as const;
-            const endDateId = `education.${index}.endDate` as const;
+            const skillNameId = `skills.${index}.skillName` as const;
+            const versionId = `skills.${index}.version` as const;
+            const lastUsedId = `skills.${index}.lastUsed` as const;
+            const experienceYearsId = `skills.${index}.experienceYears` as const;
+            const experienceMothsId = `skills.${index}.experienceMonths` as const;
 
             return (
-              <div className="education-section" key={field.id}>
+              <div className="skills-section" key={field.id}>
                 <Grid container spacing="20">
                   <Grid item xs={12} display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
                     <p className="custom-form-section-label">S.No {index + 1} :</p>
@@ -97,8 +97,8 @@ const StepFourForm: FC<StepFourFormProps> = ({ onBack, onSubmit }) => {
                       {...register(skillNameId, {
                         required: "Skill name is required",
                       })}
-                      error={!!errors?.education?.[index]?.skillName}
-                      helperText={errors?.education?.[index]?.skillName?.message}
+                      error={!!errors?.skills?.[index]?.skillName}
+                      helperText={errors?.skills?.[index]?.skillName?.message}
                       fullWidth
                       size="small"
                     />
@@ -106,71 +106,102 @@ const StepFourForm: FC<StepFourFormProps> = ({ onBack, onSubmit }) => {
                   <Grid item xs={3}>
                     <TextField
                       id={versionId}
-                      label="Version *"
+                      label="Version"
                       type="text"
                       {...register(versionId, {
-                        required: "Version is required",
+                        required: false,
                       })}
-                      error={!!errors?.education?.[index]?.version}
-                      helperText={errors?.education?.[index]?.version?.message}
+                      error={!!errors?.skills?.[index]?.version}
+                      helperText={errors?.skills?.[index]?.version?.message}
                       fullWidth
                       size="small"
                     />
                   </Grid>
                   <Grid item xs={3}>
-                    <FormControl fullWidth error={!!errors?.education?.[index]?.lastUsed} size="small">
-                      <InputLabel id="last-used-label">Last Used *</InputLabel>
+                    <FormControl fullWidth error={!!errors?.skills?.[index]?.lastUsed} size="small">
+                      <InputLabel id="last-used-label">Last Used</InputLabel>
                       <Select
                         labelId="last-used-label"
                         id={lastUsedId}
-                        label="Last Used *"
+                        label="Last Used"
                         defaultValue=""
                         {...register(lastUsedId, {
-                          required: "Last used is required",
+                          required: false,
                         })}
                       >
                         <MenuItem value="">
                           <em>None</em>
                         </MenuItem>
-                        <MenuItem value={"phd"}>Full time</MenuItem>
-                        <MenuItem value={"post-graduation"}>Part time</MenuItem>
-                        <MenuItem value={"distance"}>Distance learning</MenuItem>
+                        <MenuItem value={2023}>2023</MenuItem>
+                        <MenuItem value={2022}>2022</MenuItem>
+                        <MenuItem value={2021}>2021</MenuItem>
+                        <MenuItem value={2020}>2020</MenuItem>
+                        <MenuItem value={2019}>2019</MenuItem>
+                        <MenuItem value={2018}>2018</MenuItem>
+                        <MenuItem value={2017}>2017</MenuItem>
+                        <MenuItem value={2016}>2016</MenuItem>
                       </Select>
-                      <FormHelperText>{errors?.education?.[index]?.lastUsed?.message}</FormHelperText>
+                      <FormHelperText>{errors?.skills?.[index]?.lastUsed?.message}</FormHelperText>
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
                     <p>Experience :</p>
                   </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      id={startDateId}
-                      label="Start Date *"
-                      type="date"
-                      {...register(startDateId, {
-                        required: "Start date is required",
-                      })}
-                      InputLabelProps={{ shrink: true }}
-                      error={!!errors?.education?.[index]?.startDate}
-                      helperText={errors?.education?.[index]?.startDate?.message}
-                      fullWidth
-                      size="small"
-                    />
+                  <Grid item xs={3}>
+                    <FormControl fullWidth error={!!errors?.skills?.[index]?.experienceYears} size="small">
+                      <InputLabel id="exp-years-label">Years</InputLabel>
+                      <Select
+                        labelId="exp-years-label"
+                        id={experienceYearsId}
+                        label="Years"
+                        defaultValue=""
+                        {...register(experienceYearsId, {
+                          required: false,
+                        })}
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={0}>0 Year</MenuItem>
+                        <MenuItem value={1}>1 Years</MenuItem>
+                        <MenuItem value={2}>2 Years</MenuItem>
+                        <MenuItem value={3}>3 Years</MenuItem>
+                        <MenuItem value={4}>4 Years</MenuItem>
+                        <MenuItem value={5}>5 Years</MenuItem>
+                      </Select>
+                      <FormHelperText>{errors?.skills?.[index]?.experienceYears?.message}</FormHelperText>
+                    </FormControl>
                   </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      id={endDateId}
-                      label="End Date *"
-                      type="date"
-                      {...register(endDateId, {
-                        required: "End date is required",
-                      })}
-                      InputLabelProps={{ shrink: true }}
-                      error={!!errors?.education?.[index]?.endDate}
-                      helperText={errors?.education?.[index]?.endDate?.message}
-                      fullWidth
-                      size="small"
-                    />
+                  <Grid item xs={3}>
+                    <FormControl fullWidth error={!!errors?.skills?.[index]?.experienceMonths} size="small">
+                      <InputLabel id="exp-months-label">Months</InputLabel>
+                      <Select
+                        labelId="exp-months-label"
+                        id={experienceMothsId}
+                        label="Months"
+                        defaultValue=""
+                        {...register(experienceMothsId, {
+                          required: false,
+                        })}
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={0}>0 Months</MenuItem>
+                        <MenuItem value={1}>1 Months</MenuItem>
+                        <MenuItem value={2}>2 Months</MenuItem>
+                        <MenuItem value={3}>3 Months</MenuItem>
+                        <MenuItem value={4}>4 Months</MenuItem>
+                        <MenuItem value={5}>5 Months</MenuItem>
+                        <MenuItem value={6}>6 Months</MenuItem>
+                        <MenuItem value={7}>7 Months</MenuItem>
+                        <MenuItem value={8}>8 Months</MenuItem>
+                        <MenuItem value={9}>9 Months</MenuItem>
+                        <MenuItem value={10}>10 Months</MenuItem>
+                        <MenuItem value={11}>11 Months</MenuItem>
+                      </Select>
+                      <FormHelperText>{errors?.skills?.[index]?.experienceMonths?.message}</FormHelperText>
+                    </FormControl>
                   </Grid>
                 </Grid>
               </div>
