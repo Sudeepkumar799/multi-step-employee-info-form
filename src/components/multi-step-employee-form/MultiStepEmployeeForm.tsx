@@ -42,8 +42,8 @@ const MultiStepEmployeeForm = () => {
     });
   };
 
-  const handleStepOneSubmit = () => {
-    updateActiveStep(1);
+  const goToNext = () => {
+    updateActiveStep(activeStep + 1);
   };
 
   const handleGoBack = () => {
@@ -54,10 +54,10 @@ const MultiStepEmployeeForm = () => {
     <div className="msef-section">
       <CustomStepper activeStep={activeStep} />
       <div className="msef-section-content">
-        {activeStep === 0 && <StepOneForm onSubmit={handleStepOneSubmit} />}
-        {activeStep === 1 && <StepTwoForm onBack={handleGoBack} onSubmit={handleStepOneSubmit} />}
-        {activeStep === 2 && <StepThreeForm onBack={handleGoBack} onSubmit={handleStepOneSubmit} />}
-        {activeStep === 3 && <StepFourForm onBack={handleGoBack} onSubmit={handleStepOneSubmit} />}
+        {activeStep === 0 && <StepOneForm onSubmit={goToNext} />}
+        {activeStep === 1 && <StepTwoForm onBack={handleGoBack} onSubmit={goToNext} />}
+        {activeStep === 2 && <StepThreeForm onBack={handleGoBack} onSubmit={goToNext} />}
+        {activeStep === 3 && <StepFourForm onBack={handleGoBack} onSubmit={goToNext} />}
       </div>
     </div>
   );

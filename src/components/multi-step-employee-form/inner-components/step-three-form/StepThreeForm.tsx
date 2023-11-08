@@ -9,7 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 
-interface IEmployment {
+interface IEducation {
   educationType: string;
   universityName: string;
   course: string;
@@ -19,7 +19,7 @@ interface IEmployment {
 }
 
 interface IFormInput {
-  education: IEmployment[];
+  education: IEducation[];
 }
 
 type StepThreeFormProps = {
@@ -48,12 +48,12 @@ const StepThreeForm: FC<StepThreeFormProps> = ({ onBack, onSubmit }) => {
     control,
   });
 
-  const addEmployment = () => {
+  const addEducation = () => {
     append({
+      educationType: "",
       universityName: "",
       course: "",
       courseType: "",
-      educationType: "",
       startDate: "",
       endDate: "",
     });
@@ -69,7 +69,7 @@ const StepThreeForm: FC<StepThreeFormProps> = ({ onBack, onSubmit }) => {
       <Grid container spacing="20px">
         <Grid item xs={12} display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
           <p className="custom-form-section-label">Education:</p>
-          <Button variant="contained" type="button" disableElevation size="small" onClick={addEmployment}>
+          <Button variant="contained" type="button" disableElevation size="small" onClick={addEducation}>
             Add
           </Button>
         </Grid>

@@ -9,7 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 
-interface IEmployment {
+interface ISkill {
   skillName: string;
   version: string;
   lastUsed: string;
@@ -18,7 +18,7 @@ interface IEmployment {
 }
 
 interface IFormInput {
-  skills: IEmployment[];
+  skills: ISkill[];
 }
 
 type StepFourFormProps = {
@@ -46,7 +46,7 @@ const StepFourForm: FC<StepFourFormProps> = ({ onBack, onSubmit }) => {
     control,
   });
 
-  const addEmployment = () => {
+  const addSkills = () => {
     append({
       skillName: "",
       version: "",
@@ -65,8 +65,8 @@ const StepFourForm: FC<StepFourFormProps> = ({ onBack, onSubmit }) => {
     <form className="custom-form" noValidate autoComplete="off" onSubmit={handleSubmit(submitData)}>
       <Grid container spacing="20px">
         <Grid item xs={12} display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
-          <p className="custom-form-section-label">Education:</p>
-          <Button variant="contained" type="button" disableElevation size="small" onClick={addEmployment}>
+          <p className="custom-form-section-label">Skills:</p>
+          <Button variant="contained" type="button" disableElevation size="small" onClick={addSkills}>
             Add
           </Button>
         </Grid>
