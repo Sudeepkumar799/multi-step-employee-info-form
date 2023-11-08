@@ -1,0 +1,15 @@
+// msef - Multi Step Employee Form
+.msef-section {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  padding: 20px;
+  // border: 2px solid rgb(195, 195, 195);
+  border-radius: 3px;
+  margin: 40px;
+
+  h2{
+    color: gray;
+  }
+}
