@@ -161,6 +161,10 @@ const StepOneForm: FC<StepOneFormProps> = ({ onSubmit }) => {
             type="email"
             {...register("emailId", {
               required: "Email id is required",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Email ID is invalid",
+              },
             })}
             error={!!errors.emailId}
             helperText={errors?.emailId?.message}
@@ -187,7 +191,7 @@ const StepOneForm: FC<StepOneFormProps> = ({ onSubmit }) => {
         </Grid>
         <Grid item xs={12} display="flex" flexDirection="row" justifyContent="flex-end">
           <Button variant="contained" type="submit" disableElevation>
-            Submit
+            Save
           </Button>
         </Grid>
       </Grid>

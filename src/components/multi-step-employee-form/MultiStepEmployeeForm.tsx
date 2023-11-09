@@ -16,7 +16,7 @@ type InitialStateProps = {
 };
 
 const initialState: InitialStateProps = {
-  activeStep: 3,
+  activeStep: 0,
 };
 
 const reducer = (state: InitialStateProps, action: Action) => {
@@ -50,6 +50,14 @@ const MultiStepEmployeeForm = () => {
     updateActiveStep(activeStep - 1);
   };
 
+  const handleFinalFormSubmit = () => {
+    alert("Employee information is submitted! Thank You.");
+    setTimeout(() => {
+      updateActiveStep(0);
+      localStorage.clear();
+    }, 3000);
+  };
+
   return (
     <div className="msef-section">
       <CustomStepper activeStep={activeStep} />
@@ -57,7 +65,7 @@ const MultiStepEmployeeForm = () => {
         {activeStep === 0 && <StepOneForm onSubmit={goToNext} />}
         {activeStep === 1 && <StepTwoForm onBack={handleGoBack} onSubmit={goToNext} />}
         {activeStep === 2 && <StepThreeForm onBack={handleGoBack} onSubmit={goToNext} />}
-        {activeStep === 3 && <StepFourForm onBack={handleGoBack} onSubmit={goToNext} />}
+        {activeStep === 3 && <StepFourForm onBack={handleGoBack} onSubmit={handleFinalFormSubmit} />}
       </div>
     </div>
   );
